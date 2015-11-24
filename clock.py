@@ -52,17 +52,6 @@ hourColour   = [255,0,0] # red
 minuteColour = [0,255,255] # cyan
 empty        = [0,0,0] # off / black
 
-hours_minutes = [
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0
-]
-
 clockImage = [
 0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,
@@ -85,7 +74,7 @@ if (hour >= 10):
 	for indexLoop in range(0, 4):
 		index = index + 4
 		for counterLoop in range(0, 4):
-			hours_minutes[index] = number[int(hour/10)*16+pixelOffset]
+			clockImage[index] = number[int(hour/10)*16+pixelOffset]
 			pixelOffset = pixelOffset + 1
 			index = index + 1
 
@@ -96,7 +85,7 @@ index = 0
 for indexLoop in range(0, 4):
 	index = index + 4
 	for counterLoop in range(0, 4):
-		hours_minutes[index] = number[int(hour%10)*16+pixelOffset]
+		clockImage[index] = number[int(hour%10)*16+pixelOffset]
 		pixelOffset = pixelOffset + 1
 		index = index + 1
 
@@ -107,7 +96,7 @@ index = 28
 for indexLoop in range(0, 4):
 	index = index + 4
 	for counterLoop in range(0, 4):
-		hours_minutes[index] = number[int(minute/10)*16+pixelOffset]
+		clockImage[index] = number[int(minute/10)*16+pixelOffset]
 		pixelOffset = pixelOffset + 1
 		index = index + 1
 
@@ -118,14 +107,14 @@ index = 32
 for indexLoop in range(0, 4):
 	index = index + 4
 	for counterLoop in range(0, 4):
-		hours_minutes[index] = number[int(minute%10)*16+pixelOffset]
+		clockImage[index] = number[int(minute%10)*16+pixelOffset]
 		pixelOffset = pixelOffset + 1
 		index = index + 1
 
 # Colour the hours
 
 for index in range(0, 32):
-	if (hours_minutes[index]):
+	if (clockImage[index]):
 		clockImage[index] = hourColour
 	else:
 		clockImage[index] = empty
@@ -133,7 +122,7 @@ for index in range(0, 32):
 # Colour the minutes
 
 for index in range(32, 64):
-	if (hours_minutes[index]):
+	if (clockImage[index]):
 		clockImage[index] = minuteColour
 	else:
 		clockImage[index] = empty
