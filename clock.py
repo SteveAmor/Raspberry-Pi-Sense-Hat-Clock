@@ -174,4 +174,5 @@ for index in range(32, 64):
 # Display the time
 
 sense.set_rotation(90) # Optional
+sense.low_light = True # Optional
 sense.set_pixels(clockImage)
