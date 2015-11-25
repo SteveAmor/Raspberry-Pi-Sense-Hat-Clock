@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 from sense_hat import SenseHat
 import time
@@ -66,64 +66,29 @@ clockImage = [
 hour = time.localtime().tm_hour
 minute = time.localtime().tm_min
 
-# Tens of hours
-
-if (hour >= 10):
-	pixelOffset = 0
-	index = -4
-	for indexLoop in range(0, 4):
-		index = index + 4
-		for counterLoop in range(0, 4):
-			clockImage[index] = number[int(hour/10)*16+pixelOffset]
-			pixelOffset = pixelOffset + 1
-			index = index + 1
-
-# Units of hours
+# Map digits to clockImage array
 
 pixelOffset = 0
 index = 0
 for indexLoop in range(0, 4):
-	index = index + 4
 	for counterLoop in range(0, 4):
-		clockImage[index] = number[int(hour%10)*16+pixelOffset]
+		if (hour >= 10):
+			clockImage[index] = number[int(hour/10)*16+pixelOffset]
+		clockImage[index+4] = number[int(hour%10)*16+pixelOffset]
+		clockImage[index+32] = number[int(minute/10)*16+pixelOffset]
+		clockImage[index+36] = number[int(minute%10)*16+pixelOffset]
 		pixelOffset = pixelOffset + 1
 		index = index + 1
-
-# Tens of minutes
-
-pixelOffset = 0
-index = 28
-for indexLoop in range(0, 4):
 	index = index + 4
-	for counterLoop in range(0, 4):
-		clockImage[index] = number[int(minute/10)*16+pixelOffset]
-		pixelOffset = pixelOffset + 1
-		index = index + 1
 
-# Units of minutes
+# Colour the hours and minutes
 
-pixelOffset = 0
-index = 32
-for indexLoop in range(0, 4):
-	index = index + 4
-	for counterLoop in range(0, 4):
-		clockImage[index] = number[int(minute%10)*16+pixelOffset]
-		pixelOffset = pixelOffset + 1
-		index = index + 1
-
-# Colour the hours
-
-for index in range(0, 32):
+for index in range(0, 64):
 	if (clockImage[index]):
-		clockImage[index] = hourColour
-	else:
-		clockImage[index] = empty
-
-# Colour the minutes
-
-for index in range(32, 64):
-	if (clockImage[index]):
-		clockImage[index] = minuteColour
+		if index < 32:
+			clockImage[index] = hourColour
+		else:
+			clockImage[index] = minuteColour
 	else:
 		clockImage[index] = empty
 
